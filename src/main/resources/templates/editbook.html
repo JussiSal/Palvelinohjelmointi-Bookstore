@@ -6,7 +6,8 @@
 	</head>
 	<body>
 		<h2>Edit book</h2>
-		<form action="#" th:action="@{savebook}" th:object="${book}" method="post">
+		<!-- Formissa pitää muistaa kulkea puussa taakse päin (../), jos kuljetaan esim. endpointista /editbook/1 -> /save -->
+		<form action="#" th:action="@{../savebook}" th:object="${book}" method="post">
 			<label>Title: </label><input type="text" th:field="*{title}" /><br>
 			<label>Author: </label><input type="text" th:field="*{author}" /><br>
 			<label>Year: </label><input type="text" th:field="*{year}" /><br>
