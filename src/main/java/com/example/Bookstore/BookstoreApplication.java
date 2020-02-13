@@ -20,6 +20,7 @@ public class BookstoreApplication {
 		SpringApplication.run(BookstoreApplication.class, args);
 	}
 	
+	//Tämä ajetaan kun ohjelma ajetaan. Tänne voidaan tunkea kaikke mitä halutaan ohjelman pitävän alkuksi sisällään esim. testidataa
 	@Bean
 	public CommandLineRunner bookstoreDemo(BookRepository repo) {
 		return (args) -> {
