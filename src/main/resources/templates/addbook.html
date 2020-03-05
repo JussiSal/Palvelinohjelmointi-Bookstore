@@ -12,6 +12,10 @@
 			<label>Year: </label><input type="text" th:field="*{year}" /><br>
 			<label>ISBN: </label><input type="text" th:field="*{isbn}" /><br>
 			<label>Price: </label><input type="text" th:field="*{price}" /><br>
+			<label>Category: </label>
+			<select th:field="*{category}">
+				<option th:each="category: ${categorys}" th:value="${category.id}" th:text="${category.name}"></option>
+			</select>
 			<button type="submit">Submit</button>
 		</form>
 	</body>

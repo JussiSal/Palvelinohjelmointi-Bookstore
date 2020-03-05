@@ -11,13 +11,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.Bookstore.domain.Book;
 import com.example.Bookstore.domain.BookRepository;
+import com.example.Bookstore.domain.CategoryRepository;
 
 @Controller
 public class BookController {
 	
-	//Injektoidaan itsetehty repository, jotta sitä ja sen teitoja voidaan käyttää. Esim. lähetetään kaikki relaation tiedot sivulle näytetäväksi
+	//Injektoidaan itsetehty repository, jotta sitä ja sen tietoja voidaan käyttää. Esim. lähetetään kaikki relaation tiedot sivulle näytetäväksi
 	@Autowired
 	private BookRepository repo;
+	@Autowired
+	private CategoryRepository caterepo;
 	
 	@GetMapping("/index")
 	public String indexGet() {
@@ -31,6 +34,7 @@ public class BookController {
 		return "booklist";
 	}
 	
+	//id tieto saadaan urlisata /delete/X ja @PathVAriable saa sen käyttöön
 	@GetMapping("/delete/{id}")
 	public String bookDelete(@PathVariable("id") Long id, Model model) {
 		repo.deleteById(id);
@@ -39,6 +43,7 @@ public class BookController {
 	
 	@GetMapping("/addbook")
 	public String addbookGet(Model model) {
+		model.addAttribute("categorys", caterepo.findAll());
 		model.addAttribute("book", new Book());
 		return "addbook";
 	}
@@ -53,6 +58,7 @@ public class BookController {
 	public String editbookGet(@PathVariable("id") Long id, Model model) {
 		Book book = repo.findById(id).get();
 		model.addAttribute("book", book);
+		model.addAttribute("categorys", caterepo.findAll());
 		return "editbook";
 	}
 	
