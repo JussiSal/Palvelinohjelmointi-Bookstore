@@ -38,7 +38,7 @@ public class BookController {
     }
 	
 	//Lähetetään modelilla kaikki repon tietorivit html:lle CrudRepositoryn findall() metodilla (peritty omalle repolle).
-	@GetMapping("/booklist")
+	@GetMapping({"/", "/booklist"})
 	public String booklistGet(Model model) {
 		model.addAttribute("books", repo.findAll());
 		return "booklist";

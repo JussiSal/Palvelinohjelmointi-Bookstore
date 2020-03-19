@@ -11,6 +11,8 @@ import com.example.Bookstore.domain.Book;
 import com.example.Bookstore.domain.BookRepository;
 import com.example.Bookstore.domain.Category;
 import com.example.Bookstore.domain.CategoryRepository;
+import com.example.Bookstore.domain.User;
+import com.example.Bookstore.domain.UserRepository;
 
 
 @SpringBootApplication
@@ -24,8 +26,12 @@ public class BookstoreApplication {
 	
 	//Tämä ajetaan kun ohjelma ajetaan. Tänne voidaan tunkea kaikke mitä halutaan ohjelman pitävän alkuksi sisällään esim. testidataa
 	@Bean
-	public CommandLineRunner bookstoreDemo(BookRepository brepo, CategoryRepository crepo) {
+	public CommandLineRunner bookstoreDemo(BookRepository brepo, CategoryRepository crepo, UserRepository urepo) {
 		return (args) -> {
+			log.info("Laitetas pari käyttäjää");
+			urepo.save(new User("user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "user@bookstore.com", "USER"));
+			urepo.save(new User("admin", "$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", "admin@bookstore.com", "ADMIN"));
+			
 			log.info("Toimii ennen addaamista.");
 			crepo.save(new Category("Tiede"));
 			crepo.save(new Category("Fiktio"));

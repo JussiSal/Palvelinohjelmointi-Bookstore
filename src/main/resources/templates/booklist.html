@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <title>Book list</title>
 <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
@@ -35,9 +36,9 @@
 			<td th:text="${book.isbn}">Isbn</td>
 			<td th:text="${book.year}">Year</td>
 			<td th:text="${book.price}">Price</td>
-			<td><a th:href="@{/delete/{id}(id=${book.id})}"><button
+			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${book.id})}"><button
 						class="btn btn-danger">Delete</button></a></td>
-			<td><a th:href="@{/editbook/{id}(id=${book.id})}">Edit</a></td>
+			<td ><a th:href="@{/editbook/{id}(id=${book.id})}">Edit</a></td>
 		</tr>
 	</table>
 	<a href="/addbook"><button class="btn btn-success">Add
