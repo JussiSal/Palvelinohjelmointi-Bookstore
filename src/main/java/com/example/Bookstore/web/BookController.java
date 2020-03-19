@@ -1,5 +1,6 @@
 package com.example.Bookstore.web;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.Bookstore.domain.Book;
 import com.example.Bookstore.domain.BookRepository;
 import com.example.Bookstore.domain.CategoryRepository;
+
 
 @Controller
 public class BookController {
@@ -26,6 +30,12 @@ public class BookController {
 	public String indexGet() {
 		return "index";
 	}
+	
+	//Login
+	@RequestMapping(value="/login")
+    public String login() {	
+        return "login";
+    }
 	
 	//Lähetetään modelilla kaikki repon tietorivit html:lle CrudRepositoryn findall() metodilla (peritty omalle repolle).
 	@GetMapping("/booklist")
@@ -62,4 +72,15 @@ public class BookController {
 		return "editbook";
 	}
 	
+	// RESTful service jolla saadaan kaikki kirjat JSON-muodossa
+    @GetMapping("/books")
+    public @ResponseBody List<Book> booksRest() {	
+        return (List<Book>) repo.findAll();
+    }
+    
+    // RESTful service to get student by id
+    @GetMapping(value="/book/{id}")
+    public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long id) {	
+    	return repo.findById(id);
+    }
 }

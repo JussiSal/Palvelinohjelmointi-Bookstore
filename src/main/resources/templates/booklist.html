@@ -1,34 +1,46 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<title>Book list</title>
-		<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
-	</head>
-	<body>
-		<h1>Book list</h1>
-		<table class="table table-striped">
-			<tr>
-				<td><h4>Title</h4></td>
-				<td><h4>Author</h4></td>
-				<td><h4>Category</h4></td>
-				<td><h4>ISBN</h4></td>
-				<td><h4>Year</h4></td>
-				<td><h4>Price</h4></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr th:each="book : ${books}">
-				<td th:text="${book.title}">Title</td>
-				<td th:text="${book.author}">Author</td>
-				<td th:text="${book.category.name}">Category</td>
-				<td th:text="${book.isbn}">Isbn</td>
-				<td th:text="${book.year}">Year</td>
-				<td th:text="${book.price}">Price</td>
-				<td><a th:href="@{/delete/{id}(id=${book.id})}"><button class="btn btn-danger">Delete</button></a></td>
-				<td><a th:href="@{/editbook/{id}(id=${book.id})}">Edit</a></td>
-			</tr>
-		</table>
-		<a href="/addbook"><button class="btn btn-success">Add book</button></a>
-	</body>
+<head>
+<title>Book list</title>
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+	<h1>Book list</h1>
+	<div class="col-md-4">
+		<h3 th:inline="text">Welcome
+			[[${#httpServletRequest.remoteUser}]]</h3>
+	</div>
+	<div class="col-md-4" style="padding: 20px 0">
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out" class="btn btn-sm btn-danger" />
+		</form>
+	</div>
+	<table class="table table-striped">
+		<tr>
+			<td><h4>Title</h4></td>
+			<td><h4>Author</h4></td>
+			<td><h4>Category</h4></td>
+			<td><h4>ISBN</h4></td>
+			<td><h4>Year</h4></td>
+			<td><h4>Price</h4></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr th:each="book : ${books}">
+			<td th:text="${book.title}">Title</td>
+			<td th:text="${book.author}">Author</td>
+			<td th:text="${book.category.name}">Category</td>
+			<td th:text="${book.isbn}">Isbn</td>
+			<td th:text="${book.year}">Year</td>
+			<td th:text="${book.price}">Price</td>
+			<td><a th:href="@{/delete/{id}(id=${book.id})}"><button
+						class="btn btn-danger">Delete</button></a></td>
+			<td><a th:href="@{/editbook/{id}(id=${book.id})}">Edit</a></td>
+		</tr>
+	</table>
+	<a href="/addbook"><button class="btn btn-success">Add
+			book</button></a>
+</body>
 </html>
